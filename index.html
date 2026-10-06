@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İmaj Erkek Kuaför</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>İmaj Erkek Kuaför</h1>
+    <p>Online randevu ile sıra beklemeden hizmet alın.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>Hizmetlerimiz</h2>
+      <ul>
+        <li>Saç Kesimi - 400 TL</li>
+        <li>Sakal Tıraşı - 150 TL</li>
+        <li>Saç + Sakal - 400 TL</li>
+        <li>Saç Yıakma - 100 TL</li>
+        <li>Damat Tıraşı - 1000 TL</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Randevu Al</h2>
+      <form>
+        <label for="ad">Adınız Soyadınız</label>
+        <input type="text" id="ad" name="ad">
+
+        <label for="telefon">Telefon</label>
+        <input type="tel" id="telefon" name="telefon">
+
+        <label for="hizmet">Hizmet</label>
+        <select id="hizmet" name="hizmet">
+          <option>Saç Kesimi</option>
+          <option>Sakal Tıraşı</option>
+          <option>Saç + Sakal</option>
+        </select>
+
+        <label for="tarih">Tarih</label>
+        <input type="date" id="tarih" name="tarih">
+
+        <label for="saat">Saat</label>
+        <input type="time" id="saat" name="saat">
+
+        <label for="not">Not (isteğe bağlı)</label>
+        <textarea id="not" name="not" rows="1"></textarea>
+
+        <button type="submit">Randevu Oluştur</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Adres: Örnek Mah. Örnek Sok. No:1</p>
+  </footer>
+</body>
+</html>
