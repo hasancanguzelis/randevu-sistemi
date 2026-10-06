@@ -49,7 +49,7 @@ function suAnkiSaat() {
 function hatalariBul(r) {
     const hatalar = [];
     if (r.ad === "") {
-        hatalar.push("Ad soyad boş olamaz.");
+        hatalar.push("Ad soyad boş olamaz.>");
     }
     // 05 ile başlayan, toplam 11 haneli numara
     if (!/^05\d{9}$/.test(r.telefon)) {
@@ -75,14 +75,6 @@ function hatalariBul(r) {
         hatalar.push("Bugün için geçmiş bir saat seçemezsiniz.");
     }
     return hatalar;
-}
-function hatalariGoster(hatalar) {
-    hataAlani.textContent = "";
-    for (const hata of hatalar) {
-        const satir = document.createElement("li");
-        satir.textContent = hata;
-        hataAlani.appendChild(satir);
-    }
 }
 // Listede görünecek satırın metnini hazırlar
 function randevuMetni(r) {
@@ -113,10 +105,11 @@ form.addEventListener("submit", function (event) {
         not: notKutusu.value.trim(),
     };
     const hatalar = hatalariBul(randevu);
-    hatalariGoster(hatalar);
     if (hatalar.length > 0) {
+        hataAlani.textContent = hatalar.join(" ");
         return;
     }
+    hataAlani.textContent = "";
     const madde = document.createElement("li");
     madde.textContent = randevuMetni(randevu);
     liste.appendChild(madde);

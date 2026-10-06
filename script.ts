@@ -28,7 +28,7 @@ function elemanBul<T extends HTMLElement>(secici: string): T {
 
 const form = elemanBul<HTMLFormElement>("form");
 const liste = elemanBul<HTMLUListElement>("#randevu-listesi");
-const hataAlani = elemanBul<HTMLUListElement>("#hata");
+const hataAlani = elemanBul<HTMLParagraphElement>("#hata");
 const adKutusu = elemanBul<HTMLInputElement>("#ad");
 const telefonKutusu = elemanBul<HTMLInputElement>("#telefon");
 const hizmetKutusu = elemanBul<HTMLSelectElement>("#hizmet");
@@ -71,7 +71,7 @@ function hatalariBul(r: Randevu): string[] {
   const hatalar: string[] = [];
 
   if (r.ad === "") {
-    hatalar.push("Ad soyad boş olamaz.");
+    hatalar.push("Ad soyad boş olamaz.>");
   }
 
   // 05 ile başlayan, toplam 11 haneli numara
@@ -99,16 +99,6 @@ function hatalariBul(r: Randevu): string[] {
   }
 
   return hatalar;
-}
-
-function hatalariGoster(hatalar: string[]): void {
-  hataAlani.textContent = "";
-
-  for (const hata of hatalar) {
-    const satir = document.createElement("li");
-    satir.textContent = hata;
-    hataAlani.appendChild(satir);
-  }
 }
 
 // Listede görünecek satırın metnini hazırlar
@@ -149,11 +139,13 @@ form.addEventListener("submit", function (event: SubmitEvent): void {
   };
 
   const hatalar = hatalariBul(randevu);
-hatalariGoster(hatalar);
 
-if (hatalar.length > 0) {
-  return;
-}
+  if (hatalar.length > 0) {
+    hataAlani.textContent = hatalar.join(" ");
+    return;
+  }
+
+  hataAlani.textContent = "";
 
   const madde = document.createElement("li");
   madde.textContent = randevuMetni(randevu);
