@@ -1,7 +1,6 @@
 import Header from "./components/Header";
 import HizmetListesi from "./components/HizmetListesi";
-import RandevuFormu from "./components/RandevuFormu";
-import RandevuListesi from "./components/RandevuListesi";
+import RandevuBolumu from "./components/RandevuBolumu";
 import Footer from "./components/Footer";
 import { hizmetler } from "./data/hizmetler";
 
@@ -15,8 +14,7 @@ export default function Home() {
 
       <main>
         <HizmetListesi hizmetler={hizmetler} />
-        <RandevuFormu hizmetler={hizmetler} />
-        <RandevuListesi />
+        <RandevuBolumu hizmetler={hizmetler} />
       </main>
 
       <Footer adres="Örnek Mah. Örnek Sok. No:1" />
