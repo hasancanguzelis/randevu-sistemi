@@ -76,6 +76,14 @@ function hatalariBul(r) {
     }
     return hatalar;
 }
+function hatalariGoster(hatalar) {
+    hataAlani.textContent = "";
+    for (const hata of hatalar) {
+        const satir = document.createElement("li");
+        satir.textContent = hata;
+        hataAlani.appendChild(satir);
+    }
+}
 // Listede görünecek satırın metnini hazırlar
 function randevuMetni(r) {
     let metin = `${r.tarih} ${r.saat} - ${r.ad} (${r.hizmet})`;
@@ -105,11 +113,10 @@ form.addEventListener("submit", function (event) {
         not: notKutusu.value.trim(),
     };
     const hatalar = hatalariBul(randevu);
+    hatalariGoster(hatalar);
     if (hatalar.length > 0) {
-        hataAlani.textContent = hatalar.join(" ");
         return;
     }
-    hataAlani.textContent = "";
     const madde = document.createElement("li");
     madde.textContent = randevuMetni(randevu);
     liste.appendChild(madde);
