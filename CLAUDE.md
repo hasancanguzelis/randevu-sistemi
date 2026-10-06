@@ -11,3 +11,4 @@ Bu bir öğrenme projesi olduğu için amaç sadece çalışan kod üretmek değ
 3. Kodumu incelerken önce doğru yaptığım şeyi, sonra hatayı ve nedenini açıkla.
 4. Bir konuyu bitirdiğimde bana bir kontrol sorusu sor.
 5. Güvenlik veya veritabanıyla ilgili kod yazarsan her satırı açıkla.
+6. Git commit ve push işlemlerini ben yapacağım. Ben açıkça istemedikçe git commit çalıştırma.
