@@ -31,13 +31,15 @@
         <input type="text" id="ad" name="ad">
 
         <label for="telefon">Telefon</label>
-        <input type="tel" id="telefon" name="telefon">
+        <input type="tel" id="telefon" name="telefon" inputmode="numeric" maxlength="11" placeholder="05XXXXXXXXX">
 
         <label for="hizmet">Hizmet</label>
         <select id="hizmet" name="hizmet">
           <option>Saç Kesimi</option>
           <option>Sakal Tıraşı</option>
           <option>Saç + Sakal</option>
+          <option>Saç Yıkama</option>
+          <option>Damat Tıraşı</option>
         </select>
 
         <label for="tarih">Tarih</label>
@@ -47,15 +49,28 @@
         <input type="time" id="saat" name="saat">
 
         <label for="not">Not (isteğe bağlı)</label>
-        <textarea id="not" name="not" rows="1"></textarea>
+        <textarea id="not" name="not" rows="4"></textarea>
+
+        <p id="hata" class="hata" role="alert"></p>
 
         <button type="submit">Randevu Oluştur</button>
+
+        <form novalidate></form>
       </form>
     </section>
+
+    <section>
+        <h2>Randevularım</h2>
+        <ul id="randevu-listesi"></ul>
+    </section>
+
   </main>
 
   <footer>
     <p>Adres: Örnek Mah. Örnek Sok. No:1</p>
   </footer>
+
+  <script src="script.js" defer></script>
+
 </body>
 </html>

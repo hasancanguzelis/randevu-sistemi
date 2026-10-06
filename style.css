@@ -51,3 +51,16 @@ button {
 button:hover {
   background-color: #1558b0;
 }
+
+.hata {
+  background-color: white;
+  color: #b00020;
+  font-weight: bold;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.hata:empty {
+  display: none;
+}
