@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import type { ChangeEvent, SubmitEvent } from "react";
 import type { Hizmet } from "../data/hizmetler";
 import type { Randevu } from "../types/randevu";
+import { bugununTarihi, enGecTarih, hatalariBul } from "../lib/dogrulama";
 
 interface RandevuFormuProps {
   hizmetler: Hizmet[];
@@ -22,6 +23,18 @@ export default function RandevuFormu({ hizmetler, onEkle }: RandevuFormuProps) {
   };
 
   const [form, setForm] = useState<Randevu>(bosForm);
+  const [hatalar, setHatalar] = useState<string[]>([]);
+  const tarihKutusu = useRef<HTMLInputElement>(null);
+
+  // Takvimde geçmiş ve çok ileri günler seçilemez görünür (sadece yönlendirir,
+  // asıl kontrol hatalariBul içinde). Tarayıcıda çalışması için useEffect içinde yapılır:
+  // sayfa sunucuda derlenirken "bugün" henüz bilinmez, kullanıcının bugünü önemlidir.
+  useEffect(() => {
+    if (tarihKutusu.current !== null) {
+      tarihKutusu.current.min = bugununTarihi();
+      tarihKutusu.current.max = enGecTarih();
+    }
+  }, []);
 
   // Her kutuda bir şey değişince çalışır; kutunun name'i hangi alanın güncelleneceğini söyler
   function degisti(
@@ -33,16 +46,24 @@ export default function RandevuFormu({ hizmetler, onEkle }: RandevuFormuProps) {
     setForm((onceki) => ({ ...onceki, [name]: yeniDeger }));
   }
 
-  function gonderildi(e: FormEvent<HTMLFormElement>): void {
+  function gonderildi(e: SubmitEvent<HTMLFormElement>): void {
     e.preventDefault();
 
-    onEkle({
+    const temizForm: Randevu = {
       ...form,
       ad: form.ad.trim(),
       telefon: form.telefon.trim(),
       not: form.not.trim(),
-    });
+    };
 
+    const bulunanHatalar = hatalariBul(temizForm);
+    setHatalar(bulunanHatalar);
+
+    if (bulunanHatalar.length > 0) {
+      return;
+    }
+
+    onEkle(temizForm);
     setForm(bosForm);
   }
 
@@ -73,13 +94,26 @@ export default function RandevuFormu({ hizmetler, onEkle }: RandevuFormuProps) {
         </select>
 
         <label htmlFor="tarih">Tarih</label>
-        <input type="date" id="tarih" name="tarih" value={form.tarih} onChange={degisti} />
+        <input
+          type="date"
+          id="tarih"
+          name="tarih"
+          ref={tarihKutusu}
+          value={form.tarih}
+          onChange={degisti}
+        />
 
         <label htmlFor="saat">Saat</label>
         <input type="time" id="saat" name="saat" value={form.saat} onChange={degisti} />
 
         <label htmlFor="not">Not (isteğe bağlı)</label>
         <textarea id="not" name="not" rows={4} value={form.not} onChange={degisti}></textarea>
+
+        <ul className="hata" role="alert">
+          {hatalar.map((hata) => (
+            <li key={hata}>{hata}</li>
+          ))}
+        </ul>
 
         <button type="submit">Randevu Oluştur</button>
       </form>
